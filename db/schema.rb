@@ -10,7 +10,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120714174238) do
+ActiveRecord::Schema.define(:version => 20120715164430) do
+
+  create_table "checkins", :force => true do |t|
+    t.string   "first"
+    t.string   "last"
+    t.string   "conf"
+    t.string   "time"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "checkins", ["user_id"], :name => "index_checkins_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

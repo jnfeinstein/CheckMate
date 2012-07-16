@@ -1,0 +1,22 @@
+<h1>Checkin Details</h1>
+
+<table>
+  <tr>
+    <td>First:</td>
+    <td><%= @checkin.first %></td>
+  </tr>
+  <tr>
+    <td>Last:</td>
+    <td><%= @checkin.last %></td>
+  </tr>
+  <tr>
+    <td>Conf:</td>
+    <td><%= @checkin.conf %></td>
+  </tr>
+  <tr>
+    <td>Time:</td>
+    <td><%= @checkin.time %></td>
+  </tr>
+</table>
+
+<%= link_to 'Back to Checkins', checkins_url %>

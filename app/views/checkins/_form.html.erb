@@ -1,0 +1,32 @@
+<%= form_for(@checkin) do |form| %>
+  <% if @checkin.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+      <ul>
+      <% @checkin.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <table>
+    <tr>
+      <td><%= form.label :first %></td>
+      <td><%= form.text_field :first %></td>
+    </tr>
+    <tr>
+      <td><%= form.label :last %></td>
+      <td><%= form.text_field :last %></td>
+    </tr>
+    <tr>
+      <td><%= form.label :conf %></td>
+      <td><%= form.text_field :conf %></td>
+    </tr>
+    <tr>
+      <td><%= form.label :time %></td>
+      <td><%= select_datetime(Time.now) %></td>
+    </tr>
+  </table>
+  <%= form.submit %>
+<% end %>
