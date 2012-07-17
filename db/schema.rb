@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(:version => 20120715164430) do
     t.string   "last"
     t.string   "conf"
     t.string   "time"
+    t.string   "job_id"
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

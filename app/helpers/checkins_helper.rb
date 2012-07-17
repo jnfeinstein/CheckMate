@@ -7,6 +7,12 @@ module CheckinsHelper
   @@HOST = "www.southwest.com"
   @@URL_RETRIEVE = "/flight/retrieveCheckinDoc.html"
   
+  @@scheduler = Rufus::Scheduler.start_new
+  
+  def init_scheduler
+    schedule_all_checkins  
+  end
+  
   def do_checkin(checkin)
     url = URI.parse("#{@@PROTOCOL}#{@@HOST}#{@@URL_RETRIEVE}")
     res = Net::HTTP.post_form(url,{
@@ -41,6 +47,29 @@ module CheckinsHelper
       puts "Step 3: Not a 200"
       return
     end
-    puts res
+    @checkin.destroy
+  end
+  
+  def schedule_checkin(checkin)
+    chroniced_time = Chronic.parse(checkin.time)
+    Rails.logger.debug("CHRONIC: #{chroniced_time}")
+    job = @@scheduler.at chroniced_time do
+      do_checkin(checkin)
+    end
+    checkin.job_id = job.job_id
+    checkin.save
+  end
+  
+  def unschedule_checkin(checkin)
+    @@scheduler.unschedule(checkin.job_id)
+  end
+  
+  def schedule_all_checkins
+    if !Checkin.table_exists?
+      return
+    end
+    Checkin.all.each do |checkin|
+      schedule_checkin(checkin)
+    end
   end
 end

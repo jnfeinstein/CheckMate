@@ -9,6 +9,9 @@ gem 'pg'
 
 gem 'json'
 gem 'devise'
+# For scheduler
+gem 'rufus-scheduler'
+gem 'chronic'
 
 # Gems used only for assets and not required
 # in production environments by default.

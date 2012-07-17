@@ -1,5 +1,7 @@
 class CheckinsController < ApplicationController
   
+  include CheckinsHelper
+  
   def index
     @checkins = current_user.checkins
   end
@@ -15,13 +17,14 @@ class CheckinsController < ApplicationController
   def create
     @checkin = current_user.checkins.create(params[:checkin])
     month = params[:date][:month]
-    day = params[:date][:day]
+    day = Integer(params[:date][:day]) - 1
     year = params[:date][:year]
     hour = params[:date][:hour]
     minute = params[:date][:minute]
     @checkin.time = "#{month}/#{day}/#{year} #{hour}:#{minute}"
     
     if @checkin.save
+      schedule_checkin(@checkin)
       redirect_to @checkin
     else
       render :action => "new"
@@ -35,7 +38,7 @@ class CheckinsController < ApplicationController
   def update
     @checkin = Checkin.find(params[:id])
     month = params[:date][:month]
-    day = params[:date][:day]
+    day = Integer(params[:date][:day])- 1
     year = params[:date][:year]
     hour = params[:date][:hour]
     minute = params[:date][:minute]
@@ -50,6 +53,7 @@ class CheckinsController < ApplicationController
   
   def destroy
     @checkin = Checkin.find(params[:id])
+    unschedule_checkin(@checkin)
     @checkin.destroy
     redirect_to checkins_url
   end

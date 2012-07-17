@@ -5,6 +5,7 @@ class CreateCheckins < ActiveRecord::Migration
       t.string :last
       t.string :conf
       t.string :time
+      t.string :job_id
       t.references :user
 
       t.timestamps
