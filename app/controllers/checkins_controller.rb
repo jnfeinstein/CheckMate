@@ -17,7 +17,7 @@ class CheckinsController < ApplicationController
   def create
     @checkin = current_user.checkins.create(params[:checkin])
     month = params[:date][:month]
-    day = Integer(params[:date][:day]) - 1
+    day = params[:date][:day]
     year = params[:date][:year]
     hour = params[:date][:hour]
     minute = params[:date][:minute]
@@ -38,7 +38,7 @@ class CheckinsController < ApplicationController
   def update
     @checkin = Checkin.find(params[:id])
     month = params[:date][:month]
-    day = Integer(params[:date][:day])- 1
+    day = params[:date][:day]
     year = params[:date][:year]
     hour = params[:date][:hour]
     minute = params[:date][:minute]

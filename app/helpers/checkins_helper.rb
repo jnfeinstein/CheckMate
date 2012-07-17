@@ -51,9 +51,10 @@ module CheckinsHelper
   end
   
   def schedule_checkin(checkin)
-    chroniced_time = Chronic.parse(checkin.time)
-    Rails.logger.debug("CHRONIC: #{chroniced_time}")
-    job = @@scheduler.at chroniced_time do
+    time = DateTime.parse(checkin.time)
+    time = (time.to_time - 1.day).to_datetime
+    Rails.logger.debug("TIME: #{time}")
+    job = @@scheduler.at time do
       do_checkin(checkin)
     end
     checkin.job_id = job.job_id
