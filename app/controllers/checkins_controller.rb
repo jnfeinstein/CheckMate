@@ -22,6 +22,7 @@ class CheckinsController < ApplicationController
     hour = params[:date][:hour]
     minute = params[:date][:minute]
     @checkin.time = "#{month}/#{day}/#{year} #{hour}:#{minute}"
+    @checkin.time_zone = params[:checkin][:time_zone]
     
     if @checkin.save
       schedule_checkin(@checkin)
@@ -33,22 +34,6 @@ class CheckinsController < ApplicationController
   
   def edit
     @checkin = Checkin.find(params[:id])
-  end
-  
-  def update
-    @checkin = Checkin.find(params[:id])
-    month = params[:date][:month]
-    day = params[:date][:day]
-    year = params[:date][:year]
-    hour = params[:date][:hour]
-    minute = params[:date][:minute]
-    @checkin.time = "#{month}/#{day}/#{year} #{hour}:#{minute}"
-  
-    if @checkin.update_attributes(params[:checkin])
-      redirect_to @checkin, :notice => 'Successfully updated!'  
-    else
-      render :action => "edit" 
-    end
   end
   
   def destroy

@@ -24,9 +24,13 @@
       <td><%= form.text_field :conf %></td>
     </tr>
     <tr>
-      <td><%= form.label :time %></td>
+      <td><%= label_tag(:flight_time, "Flight Time:") %></td>
       <td><%= select_datetime(Time.now) %></td>
       <td>(Time of flight)</td>
+    </tr>
+    <tr>
+      <td><%= label_tag(:time_zone, "Time Zone:") %></td>
+      <td><%= time_zone_select(:checkin, :time_zone, ActiveSupport::TimeZone.us_zones, :default => "Pacific Time (US & Canada)") %></td>
     </tr>
   </table>
   <%= form.submit %>

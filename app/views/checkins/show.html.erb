@@ -1,3 +1,4 @@
+<% job = get_scheduled_job(@checkin) %>
 <h1>Checkin Details</h1>
 
 <table>
@@ -14,8 +15,16 @@
     <td><%= @checkin.conf %></td>
   </tr>
   <tr>
-    <td>Time:</td>
+    <td>Flight Time:</td>
     <td><%= @checkin.time %></td>
+  </tr>
+  <tr>
+    <td>Time Zone:</td>
+    <td><%= @checkin.time_zone %></td>
+  </tr>
+  <tr>
+    <td>Checkin At:</td>
+    <td><%= job.next_time %></td>  
   </tr>
 </table>
 

@@ -51,7 +51,8 @@ module CheckinsHelper
   end
   
   def schedule_checkin(checkin)
-    time = DateTime.parse(checkin.time)
+    Chronic.time_class = ActiveSupport::TimeZone.create(checkin.time_zone)
+    time = DateTime.parse(Chronic.parse(checkin.time).to_s)
     time = (time.to_time - 1.day).to_datetime
     Rails.logger.debug("TIME: #{time}")
     job = @@scheduler.at time do
@@ -72,5 +73,9 @@ module CheckinsHelper
     Checkin.all.each do |checkin|
       schedule_checkin(checkin)
     end
+  end
+  
+  def get_scheduled_job(checkin)
+    return @@scheduler.find(checkin.job_id)
   end
 end
