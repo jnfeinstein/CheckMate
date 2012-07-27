@@ -42,4 +42,9 @@ class CheckinsController < ApplicationController
     @checkin.destroy
     redirect_to checkins_url
   end
+  
+  def test_email
+    UserMailer.delay.test_email(current_user)
+    redirect_to checkins_url
+  end
 end

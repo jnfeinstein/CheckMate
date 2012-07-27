@@ -12,6 +12,9 @@ gem 'devise'
 # For scheduler
 gem 'rufus-scheduler'
 gem 'chronic'
+# For delayed records
+gem "daemons"
+gem 'delayed_job_active_record'
 
 # Gems used only for assets and not required
 # in production environments by default.
